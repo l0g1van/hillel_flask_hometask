@@ -25,7 +25,7 @@ def requirements():
 
 @app.route("/generate-users/", methods=['GET'])
 def generate_users():
-    for el in range(int(request.args.get("count", None))):
+    for el in range(int(request.args.get("count", 100))):
         first_name = fake.first_name()
         last_name = fake.last_name()
         email = fake.ascii_email()
