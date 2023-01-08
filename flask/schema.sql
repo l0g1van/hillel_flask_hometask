@@ -1,0 +1,7 @@
+CREATE TABLE tracks(
+    id PRIMARY KEY INTEGER AUTOINCREMENT,
+    title TEXT UNIQUE NOT NULL,
+    artist TEXT NOT NULL,
+    genre TEXT NOT NULL,
+    track_length INTEGER NOT NULL
+);

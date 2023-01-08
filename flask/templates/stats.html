@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<center>
+  <h1> Average Value Of Track Length is {{ average_value }} </h1>
+  <h1> Sum Of All Length Values is {{ result }} </h1>
+  <a href='{{ url_for("hello_func") }}'> <button type="button" class="btn btn-outline-primary btn-lg">Back</button> </a>
+</center>
+
+{% endblock %}
