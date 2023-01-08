@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if genre %}
+<center>
+    <h1> Amount Of Tracks With Genre {{ genre }} is {{ genre_quantity }} </h1>
+    <br/>
+    <a href='{{ url_for("hello_func") }}'> <button type="button" class="btn btn-outline-primary btn-lg">Back</button> </a>
+</center>
+{% else %}
+    <h1> What Genre Of Tracks Do You Want? </h1>
+    <br/>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.genre.label(class="form-label") }}
+        {{ form.genre(class="form-control") }}
+        <br/>
+        {{ form.submit(class="btn btn-outline-primary btn-lg") }}
+        <a href='{{ url_for("hello_func") }}'> <button type="button" class="btn btn-outline-primary btn-lg">Back</button> </a>
+    </form>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+    <h1> Track Name And Their Length:</h1>
+        {% for item in result %}
+            <br/>
+            <h1> {{ item[0] }}, {{ item[1] }} </h1>
+        {% endfor %}
+    <a href='{{ url_for("hello_func") }}'> <button type="button" class="btn btn-outline-primary btn-lg">Back</button> </a>
+</center>
+{% endblock %}

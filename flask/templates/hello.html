@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> {{ hello_word }} Dear User </h1>
+<br/>
+<h1> Click on one of those buttons: </h1>
+<br/>
+<br/>
+<br/>
+<br/>
+<center>
+    <a href='{{ url_for("get_unique_names") }}'> <button type="button" class="btn btn-outline-primary btn-lg">func 1</button> </a>
+    <a href='{{ url_for("tracks") }}'> <button type="button" class="btn btn-outline-primary btn-lg">func 2</button> </a>
+    <a href='{{ url_for("tracks_by_genre") }}'> <button type="button" class="btn btn-outline-primary btn-lg">func 3</button> </a>
+    <a href='{{ url_for("titles_and_seconds") }}'> <button type="button" class="btn btn-outline-primary btn-lg">func 4</button> </a>
+    <a href='{{ url_for("stat_func") }}'> <button type="button" class="btn btn-outline-primary btn-lg">func 5</button> </a>
+</center>
+{% endblock %}
+

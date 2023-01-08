@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <br/>
+    <br/>
+    <br/>
+    <center>
+        <h1>Unique Names Amount is {{ len_unique_names }}</h1>
+    </center>
+    <br/>
+    <br/>
+    <br/>
+    <center>
+        <a href='{{ url_for("hello_func") }}'> <button type="button" class="btn btn-outline-primary btn-lg">Back</button> </a>
+    </center>
+{% endblock %}
+
