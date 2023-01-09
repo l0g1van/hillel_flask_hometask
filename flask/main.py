@@ -24,6 +24,22 @@ class GenreForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+def create_table():
+    con = sqlite3.connect('flaskr.sqlite')
+
+    con.cursor().execute('''CREATE TABLE IF NOT EXISTS tracks(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT UNIQUE NOT NULL,
+        artist TEXT NOT NULL,
+        genre TEXT NOT NULL,
+        track_length INTEGER NOT NULL
+    )''')
+    con.commit()
+
+
+create_table()
+
+
 def fill_db(list_123: list):
     db = sqlite3.connect('flaskr.sqlite')
     if len(db.execute('''SELECT * FROM tracks''').fetchall()) == 0:
