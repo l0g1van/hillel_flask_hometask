@@ -1,28 +1,48 @@
 import sqlite3
 
-from flask import Flask, request, render_template, flash
+from flask import Flask, request, render_template
 from faker import Faker
 import csv
 import requests
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
-from db import get_db, init_db
+from db import get_db
 import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dev'
+app.config['DATABASE'] = os.path.join(app.instance_path, 'flaskr.sqlite')
 fake = Faker()
 list_1 = list()
 height_list = list()
 weight_list = list()
 
-# init_db()
-
 
 class GenreForm(FlaskForm):
     genre = StringField('What Genre Of Tracks Do You Want?', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+
+def fill_db(list_123: list):
+    db = sqlite3.connect('flaskr.sqlite')
+    if len(db.execute('''SELECT * FROM tracks''').fetchall()) == 0:
+        for el in list_123:
+            db.cursor().execute('''INSERT INTO tracks
+                        (title, artist, genre, track_length) VALUES(?, ?, ?, ?)''', (el[0], el[1], el[2], el[3]))
+            db.commit()
+
+
+fill_db([
+            ('Bagatelle No. 25 in A minor, "Für Elise"', 'Ludwig Van Beethoven', 'classic music', 176),
+            ('Piano Sonata No. 14 in C-sharp minor, Op. 27, No.2, "Moonlight"', 'Ludwig Van Beethoven', 'classic music', 900),
+            ('Symphony No. 5 in C minor, Op. 67', 'Ludwig Van Beethoven', 'classic music', 2006),
+            ('Symphony No. 9 in D minor, Op. 125, "Choral"', 'Ludwig Van Beethoven', 'classic music', 480),
+            ('Ave Maria', 'Charles Gounod', 'classic music', 168),
+            ('Messiah', 'George Frideric Handel', 'classic music', 238),
+            ('Serenade No. 13 in G Major, K 525, "Eine kleine Nachtmusik"', 'Wolfgang Amadeus Mozart', 'classic music', 1242),
+            ('The Blue Danube', 'Johann Strauss II', 'classic music', 660),
+            ('"Introduction, or Sunrise," from Also sprach Zarathustra, Op. 30', 'Richard Strauss', 'classic music', 118)])
 
 
 @app.route("/")
@@ -113,6 +133,11 @@ def stat_func():
         result = el[0]
     average_value = result / track_number
     return render_template('stats.html', average_value=average_value, result=result)
+
+
+@app.errorhandler(404)
+def page_not_found():
+    return render_template('404.html'), 404
 
 
 if __name__ == '__main__':
